@@ -20,6 +20,7 @@ directory is used.
     If no <path-to-output.mml> is given, stdout is used."
   exit 0
 }
+
 if [ -f "$1" ]; then
   DIR="$(dirname $(realpath ${1}))"
   if [ -f "$2" ]; then
@@ -30,10 +31,14 @@ if [ -f "$1" ]; then
   if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
     MML="/tmp/project.cartoymlcc.tmp.mml"
     yaml2json $1 > $MML
+    clean_mml=true
   else
     MML="$1"
   fi
-    cartocc $MML $CARTOCC $3
+  cartocc $MML $CARTOCC $3
+  if [ $clean_mml ]; then
+    rm $clean_mml
+  fi
 else
   usage
 fi

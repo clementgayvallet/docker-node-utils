@@ -12,11 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 FROM node:slim
+
 WORKDIR /usr/src/app
-ENV WORKDIR=/usr/src/app
-ENV USER=0
-RUN apt-get update && apt-get install --no-install-recommends -y git
+
+ENV WORKDIR=/usr/src/app USER_ID=0
+
 COPY entrypoint /bin/
-RUN chmod +x /bin/entrypoint
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y git \
+    && chmod +x /bin/entrypoint
+
 ENTRYPOINT ["entrypoint"]
+
 CMD ["node"]
