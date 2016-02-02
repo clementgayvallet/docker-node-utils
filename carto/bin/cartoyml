@@ -1,0 +1,35 @@
+#!/bin/bash
+# Copyright 2016 Jones Magloire (Joxit)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+function usage {
+  echo "cartoyml <path-to-project.yml|mml> [<path-to-output.mml>]
+    If no <path-to-output.mml> is given, stdout is used."
+  exit 0
+}
+
+if [ -f "$1" ]; then
+  if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
+    MML="/tmp/project.cartoyml.tmp.mml"
+    yaml2json $1 > $MML
+    clean_mml=true
+  else
+    MML="$1"
+  fi
+  carto $MML $2
+  if [ $clean_mml ]; then
+    rm $clean_mml
+  fi
+else
+  usage
+fi
