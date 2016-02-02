@@ -15,7 +15,7 @@ FROM joxit/node
 
 RUN npm install -g carto \
     && npm install -g cartocc \
-    && npm install -g yaml-to-json
+    && npm install -g js-yaml
 
 COPY bin/* /bin/
 

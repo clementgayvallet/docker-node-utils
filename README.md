@@ -16,22 +16,22 @@ There are some shortcuts you can use thanks to your bashrc or bash_aliases.
 
 ```sh
 # This will let you use node repl or start a node program.
-alias node="docker run -ti --rm -e USER=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node node"
+alias node="docker run -ti --rm -e USER_ID=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node node"
 # This will let you use npm install etc (-g option will not work as you want).
-alias npm="docker run -ti --rm -e USER=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node npm"
+alias npm="docker run -ti --rm -e USER_ID=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node npm"
 # This will let you use more than one command at the time.
-alias node_bash="docker run -ti --rm -e USER=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node bash"
+alias node_bash="docker run -ti --rm -e USER_ID=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node bash"
 
 # Use cartoCSS utilities 
-alias carto="docker run -ti --rm -e USER=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node:carto carto"
-alias cartocc="docker run -ti --rm -e USER=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node:carto cartoymlcc"
+alias carto="docker run -ti --rm -e USER_ID=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node:carto cartoyml"
+alias cartocc="docker run -ti --rm -e USER_ID=1000 -v $(pwd):/usr/src/app ${NODE_OPTS} joxit/node:carto cartoymlcc"
 ```
 
 ## Example
 
 ```sh
 # This will save node_modules in my directory with my source code and node_modules will be owned by root
-NODE_OPTS="-e USER=0" npm install
+NODE_OPTS="-e USER_ID=0" npm install
 # I use NODE_OPTS var to add new options to the docker (such as port for a server).
 NODE_OPTS="-p 3000:3000" node server/index.js
 ```

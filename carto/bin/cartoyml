@@ -21,14 +21,14 @@ function usage {
 if [ -f "$1" ]; then
   if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
     MML="/tmp/project.cartoyml.tmp.mml"
-    yaml2json $1 > $MML
+    js-yaml $1 > $MML || exit 1
     clean_mml=true
   else
     MML="$1"
   fi
-  carto $MML $2
+  carto $MML $2 || exit 1
   if [ $clean_mml ]; then
-    rm $clean_mml
+    rm $MML
   fi
 else
   usage
