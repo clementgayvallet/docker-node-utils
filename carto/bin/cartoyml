@@ -19,8 +19,9 @@ function usage {
 }
 
 if [ -f "$1" ]; then
+  DIR="$(dirname $(realpath ${1}))"
   if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
-    MML="/tmp/project.cartoyml.tmp.mml"
+    MML="$DIR/project.cartoyml.tmp.mml"
     js-yaml $1 > $MML || exit 1
     clean_mml=true
   else
