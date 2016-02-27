@@ -12,6 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+set -e
+
 function usage {
   echo "cartoymlcc <path-to-project.yml|mml> [<path-to-config.json>] \
 [<path-to-output.mml>]
@@ -30,12 +32,12 @@ if [ -f "$1" ]; then
   fi
   if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
     MML="/tmp/project.cartoymlcc.tmp.mml"
-    js-yaml $1 > $MML || exit 1
+    js-yaml $1 > $MML
     clean_mml=true
   else
     MML="$1"
   fi
-  cartocc $MML $CARTOCC $3 || exit 1
+  cartocc $MML $CARTOCC $3
   if [ $clean_mml ]; then
     rm $MML
   fi

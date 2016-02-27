@@ -12,6 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+set -e
+
 function usage {
   echo "cartoyml <path-to-project.yml|mml> [<path-to-output.mml>]
     If no <path-to-output.mml> is given, stdout is used."
@@ -22,12 +24,12 @@ if [ -f "$1" ]; then
   DIR="$(dirname $(realpath ${1}))"
   if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
     MML="$DIR/project.cartoyml.tmp.mml"
-    js-yaml $1 > $MML || exit 1
+    js-yaml $1 > $MML
     clean_mml=true
   else
     MML="$1"
   fi
-  carto $MML $2 || exit 1
+  carto $MML $2
   if [ $clean_mml ]; then
     rm $MML
   fi
