@@ -17,11 +17,11 @@ WORKDIR /usr/src/app
 
 ENV WORKDIR=/usr/src/app USER_ID=0
 
-COPY entrypoint /bin/
-
 RUN apt-get update \
     && apt-get install --no-install-recommends -y git \
     && chmod +x /bin/entrypoint
+
+COPY entrypoint /bin/
 
 ENTRYPOINT ["entrypoint"]
 
