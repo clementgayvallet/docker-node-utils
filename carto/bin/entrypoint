@@ -1,0 +1,6 @@
+#!/bin/bash
+$@
+
+if [ "$USER_ID" != "0" ]; then
+  chown -R $USER_ID:$USER_ID ./
+fi

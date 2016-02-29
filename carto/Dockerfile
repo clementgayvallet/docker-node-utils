@@ -11,7 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM joxit/node
+FROM node:slim
+
+WORKDIR /usr/src/app
+
+ENV WORKDIR=/usr/src/app USER_ID=0
 
 RUN npm install -g carto \
     && npm install -g cartocc \
@@ -19,3 +23,6 @@ RUN npm install -g carto \
 
 COPY bin/* /bin/
 
+ENTRYPOINT ["entrypoint"]
+
+CMD ["cartoyml"]
