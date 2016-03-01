@@ -18,8 +18,7 @@ WORKDIR /usr/src/app
 ENV WORKDIR=/usr/src/app USER_ID=0
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y git \
-    && chmod +x /bin/entrypoint
+    && apt-get install --no-install-recommends -y git
 
 COPY entrypoint /bin/
 
