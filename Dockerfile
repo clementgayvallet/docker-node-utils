@@ -15,7 +15,7 @@ FROM node:slim
 
 WORKDIR /usr/src/app
 
-ENV WORKDIR=/usr/src/app USER_ID=0
+ENV WORKDIR=/usr/src/app USER_ID=0 NODE_PATH=$NODE_PATH:./node_libraries:./lib/node
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y git
