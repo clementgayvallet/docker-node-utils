@@ -13,6 +13,7 @@ There are some shortcuts you can use thanks to your bashrc or bash_aliases.
 - Your source code should be in the current directory tree. 
 - You can configure your own user ID with `USER` variable (this is to avoid all new files created by docker are owned by root).
 - You can add more options to your docker with the `NODE_OPTS` variable
+- You can use [Git URLs as Dependencies](https://docs.npmjs.com/files/package.json#git-urls-as-dependencies).
 
 ```sh
 # This will let you use node repl or start a node program.
