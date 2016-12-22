@@ -15,21 +15,49 @@
 set -e
 
 function usage {
-  echo "cartoyml <path-to-project.yml|mml> [<path-to-output.mml>]
+  echo "cartoyml [carto options] <path-to-project.yml|mml> [<path-to-output.mml>]
     If no <path-to-output.mml> is given, stdout is used."
   exit 0
 }
 
-if [ -f "$1" ]; then
-  DIR="$(dirname $(realpath ${1}))"
-  if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
+options=""
+src=""
+dst=""
+is_option=false
+
+for arg in $@; do
+  case $arg in
+    -*)
+      options="$options $arg"
+      is_option=true
+      ;;
+    *)
+      if [ $is_option = true ]; then
+        options="$options $arg"
+        is_option=false
+      elif [ "$src" = "" ]; then
+        src="$arg"
+      elif [ "$dst" = "" ]; then
+        dst="$arg"
+      fi
+      ;;
+  esac
+done
+
+if [ -f "$src" ]; then
+  DIR="$(dirname $(realpath ${src}))"
+  if [ "${src#*.}" = "yml" ] || [ "${src#*.}" = "yaml" ]; then
     MML="$DIR/project.cartoyml.tmp.mml"
-    js-yaml $1 > $MML
+    js-yaml $src > $MML
     clean_mml=true
   else
-    MML="$1"
+    MML="$src"
   fi
-  carto $MML $2
+  if [ "$dst" = "" ]; then
+    carto $options $MML
+  else
+    carto $options $MML > $dst
+  fi
   if [ $clean_mml ]; then
     rm $MML
   fi
