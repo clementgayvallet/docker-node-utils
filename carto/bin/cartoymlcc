@@ -30,7 +30,7 @@ if [ -f "$1" ]; then
   else
     CARTOCC="${DIR}/cartocc.json"
   fi
-  if [ "${1#*.}" = "yml" ] || [ "${1#*.}" = "yaml" ]; then
+  if [ "${1##*.}" = "yml" ] || [ "${1##*.}" = "yaml" ]; then
     MML="/tmp/project.cartoymlcc.tmp.mml"
     js-yaml $1 > $MML
     clean_mml=true

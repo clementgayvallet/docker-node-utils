@@ -46,7 +46,7 @@ done
 
 if [ -f "$src" ]; then
   DIR="$(dirname $(realpath ${src}))"
-  if [ "${src#*.}" = "yml" ] || [ "${src#*.}" = "yaml" ]; then
+  if [ "${src##*.}" = "yml" ] || [ "${src##*.}" = "yaml" ]; then
     MML="$DIR/project.cartoyml.tmp.mml"
     js-yaml $src > $MML
     clean_mml=true
